@@ -15,6 +15,11 @@
 - 📆 **智能周数**：自动计算和显示ISO周数及周日期范围
 - 👤 **姓名管理**：支持记录和显示报告人姓名
 
+## 页面截图
+
+<img src='https://blog.522.plus/wp-content/uploads/2025/08/Screenshot-2025-08-21-at-10-25-37-%E6%A3%AE%E6%A3%AE%E4%BF%A1%E6%81%AF%E9%83%A8%E5%B7%A5%E4%BD%9C%E5%91%A8%E6%8A%A5%E8%A1%A8-1024x961.png'>
+<img src='https://blog.522.plus/wp-content/uploads/2025/08/Screenshot-2025-08-21-at-10-26-05-%E6%A3%AE%E6%A3%AE%E4%BF%A1%E6%81%AF%E9%83%A8%E5%B7%A5%E4%BD%9C%E5%91%A8%E6%8A%A5%E8%A1%A8%E6%B1%87%E6%80%BB-1024x559.png'>
+
 ## 技术架构
 
 ### 前端

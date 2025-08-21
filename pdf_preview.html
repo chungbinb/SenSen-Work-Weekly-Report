@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>森森信息部工作周报表汇总 - 预览</title>
+    <style>
+        @media print {
+            body { margin: 0; }
+            .no-print { display: none; }
+            .page-break { page-break-before: always; }
+        }
+        
+        body {
+            font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "SimSun", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #667eea;
+            font-size: 28px;
+            margin: 0 0 10px 0;
+        }
+        
+        .header .meta {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .report-item {
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #fafafa;
+        }
+        
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .report-date {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        
+        .report-name {
+            background: #28a745;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        
+        .report-section {
+            margin-bottom: 15px;
+        }
+        
+        .report-section h3 {
+            color: #495057;
+            font-size: 16px;
+            margin: 0 0 8px 0;
+            padding: 5px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .report-section .content {
+            background: white;
+            padding: 12px;
+            border-radius: 4px;
+            border-left: 4px solid #667eea;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .print-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .week-info {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="print-controls no-print">
+        <button class="btn btn-primary" onclick="window.print()">🖨️ 打印/保存PDF</button>
+        <a href="index.php" class="btn btn-secondary">← 返回</a>
+        <a href="test_pdf.html" class="btn btn-secondary">测试页面</a>
+    </div>
+    
+    <div class="header">
+        <h1>📋 森森信息部工作周报表汇总</h1>
+        <div class="meta">
+            <p>生成时间：2025年01月30日 15:30:00</p>
+            <p>总计报告：3 份</p>
+        </div>
+    </div>
+
+    <!-- 第一份报告 -->
+    <div class="report-item">
+        <div class="report-header">
+            <div class="report-date">📅 2025-01-15</div>
+            <div class="report-name">👤 张三</div>
+        </div>
+        <div class="week-info">第3周 2025/1/13-2025/1/19</div>
+        
+        <div class="report-section">
+            <h3>📝 本周工作内容</h3>
+            <div class="content">1. 完成了用户管理模块的需求分析
+2. 设计了数据库表结构
+3. 搭建了项目基础框架
+4. 完成了登录注册功能的开发</div>
+        </div>
+        
+        <div class="report-section">
+            <h3>📋 下周工作计划</h3>
+            <div class="content">1. 开发用户权限管理功能
+2. 完善数据验证逻辑
+3. 开始前端界面设计
+4. 编写单元测试用例</div>
+        </div>
+        
+        <div class="report-section">
+            <h3>⚠️ 遇到的问题</h3>
+            <div class="content">1. 数据库连接偶尔超时
+2. 第三方API调用频率限制
+3. 需要确认具体的业务流程细节</div>
+        </div>
+        
+        <div class="report-section">
+            <h3>💡 建议与改进</h3>
+            <div class="content">1. 建议增加数据库连接池
+2. 建议添加API缓存机制
+3. 建议定期进行代码审查</div>
+        </div>
+    </div>
+
+    <!-- 第二份报告 -->
+    <div class="report-item">
+        <div class="report-header">
+            <div class="report-date">📅 2025-01-22</div>
+            <div class="report-name">👤 李四</div>
+        </div>
+        <div class="week-info">第4周 2025/1/20-2025/1/26</div>
+        
+        <div class="report-section">
+            <h3>📝 本周工作内容</h3>
+            <div class="content">1. 完成了权限管理模块开发
+2. 优化了数据库查询性能
+3. 修复了登录功能的bug
+4. 完成了前端界面的基础布局</div>
+        </div>
+        
+        <div class="report-section">
+            <h3>📋 下周工作计划</h3>
+            <div class="content">1. 开发报表统计功能
+2. 完善错误处理机制
+3. 进行系统集成测试
+4. 准备用户培训材料</div>
+        </div>
+        
+        <div class="report-section">
+            <h3>⚠️ 遇到的问题</h3>
+            <div class="content">1. 前端兼容性问题
+2. 服务器部署环境配置
+3. 第三方服务集成困难</div>
+        </div>
+        
+        <div class="report-section">
+            <h3>💡 建议与改进</h3>
+            <div class="content">1. 建议统一前端技术栈
+2. 建议使用Docker容器化部署
+3. 建议建立完善的文档体系</div>
+        </div>
+    </div>
+
+    <!-- 第三份报告 -->
+    <div class="report-item">
+        <div class="report-header">
+            <div class="report-date">📅 2025-01-29</div>
+            <div class="report-name">👤 王五</div>
+        </div>
+        <div class="week-info">第5周 2025/1/27-2025/2/02</div>
+        
+        <div class="report-section">
+            <h3>📝 本周工作内容</h3>
+            <div class="content">1. 完成了报表统计功能开发
+2. 进行了全面的系统测试
+3. 优化了系统性能和响应速度
+4. 完成了用户手册编写</div>
+        </div>
+        
+        <div class="report-section">
+            <h3>📋 下周工作计划</h3>
+            <div class="content">1. 准备系统上线部署
+2. 进行用户培训和演示
+3. 收集用户反馈意见
+4. 制定运维保障方案</div>
+        </div>
+        
+        <div class="report-section">
+            <h3>⚠️ 遇到的问题</h3>
+            <div class="content">1. 大数据量查询性能待优化
+2. 移动端适配需要改进
+3. 用户权限细分需要调整</div>
+        </div>
+        
+        <div class="report-section">
+            <h3>💡 建议与改进</h3>
+            <div class="content">1. 建议引入分页和索引优化
+2. 建议采用响应式设计
+3. 建议建立用户反馈收集机制</div>
+        </div>
+    </div>
+
+    <script>
+        // 如果URL包含auto_print参数，自动打开打印对话框
+        if (window.location.search.includes("auto_print=1")) {
+            setTimeout(function() {
+                window.print();
+            }, 1000);
+        }
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>森森信息部工作周报表 - API测试页面</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; }
+        button { padding: 10px 15px; margin: 5px; }
+        .result { margin-top: 10px; padding: 10px; background: #f5f5f5; }
+        textarea { width: 100%; height: 100px; }
+    </style>
+</head>
+<body>
+    <h1>森森信息部工作周报表 - API 测试页面</h1>
+    
+    <div class="test-section">
+        <h2>1. 测试保存报告</h2>
+        <form id="testForm">
+            <p>姓名: <input type="text" id="test_name" value="张三" placeholder="请输入姓名"></p>
+            <p>日期: <input type="date" id="test_date" value="2025-08-21"></p>
+            <p>工作内容:<br><textarea id="test_content">测试工作内容：完成了API调试功能</textarea></p>
+            <p>下周计划:<br><textarea id="test_plan">测试下周计划：继续优化系统</textarea></p>
+            <p>问题:<br><textarea id="test_issues">测试问题：暂无问题</textarea></p>
+            <p>建议:<br><textarea id="test_suggestions">测试建议：继续改进</textarea></p>
+            <button type="button" onclick="testSave()">测试保存</button>
+        </form>
+        <div id="saveResult" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>2. 测试获取所有报告</h2>
+        <button onclick="testGetAll()">获取所有报告</button>
+        <div id="getAllResult" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>3. 测试导出功能</h2>
+        <button onclick="testExportCSV()">测试CSV导出</button>
+        <button onclick="testExportPDF()">测试PDF导出</button>
+        <div id="exportResult" class="result"></div>
+    </div>
+    
+    <script>
+        async function testSave() {
+            const formData = new FormData();
+            formData.append('action', 'save_report');
+            formData.append('reporter_name', document.getElementById('test_name').value);
+            formData.append('selected_date', document.getElementById('test_date').value);
+            formData.append('work_content', document.getElementById('test_content').value);
+            formData.append('next_plan', document.getElementById('test_plan').value);
+            formData.append('issues', document.getElementById('test_issues').value);
+            formData.append('suggestions', document.getElementById('test_suggestions').value);
+            
+            try {
+                console.log('发送保存请求...');
+                const response = await fetch('api.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                console.log('响应状态:', response.status);
+                const result = await response.text();
+                console.log('响应内容:', result);
+                
+                document.getElementById('saveResult').innerHTML = 
+                    '<strong>响应状态:</strong> ' + response.status + '<br>' +
+                    '<strong>响应内容:</strong> <pre>' + result + '</pre>';
+                    
+                // 尝试解析JSON
+                try {
+                    const jsonResult = JSON.parse(result);
+                    if (jsonResult.success) {
+                        document.getElementById('saveResult').innerHTML += '<p style="color: green;">✅ 保存成功！</p>';
+                    } else {
+                        document.getElementById('saveResult').innerHTML += '<p style="color: red;">❌ 保存失败: ' + jsonResult.message + '</p>';
+                    }
+                } catch (e) {
+                    document.getElementById('saveResult').innerHTML += '<p style="color: orange;">⚠️ 响应不是有效的JSON</p>';
+                }
+            } catch (error) {
+                console.error('请求失败:', error);
+                document.getElementById('saveResult').innerHTML = '<p style="color: red;">❌ 请求失败: ' + error.message + '</p>';
+            }
+        }
+        
+        async function testGetAll() {
+            try {
+                const response = await fetch('api.php?action=get_all_reports');
+                const result = await response.text();
+                
+                document.getElementById('getAllResult').innerHTML = 
+                    '<strong>响应状态:</strong> ' + response.status + '<br>' +
+                    '<strong>响应内容:</strong> <pre>' + result + '</pre>';
+                    
+                try {
+                    const jsonResult = JSON.parse(result);
+                    if (jsonResult.success) {
+                        const count = Object.keys(jsonResult.reports || {}).length;
+                        document.getElementById('getAllResult').innerHTML += '<p style="color: green;">✅ 获取成功！共 ' + count + ' 条记录</p>';
+                    }
+                } catch (e) {
+                    document.getElementById('getAllResult').innerHTML += '<p style="color: orange;">⚠️ 响应不是有效的JSON</p>';
+                }
+            } catch (error) {
+                document.getElementById('getAllResult').innerHTML = '<p style="color: red;">❌ 请求失败: ' + error.message + '</p>';
+            }
+        }
+        
+        function testExportCSV() {
+            document.getElementById('exportResult').innerHTML = '<p>正在测试CSV导出...</p>';
+            window.open('export.php', '_blank');
+        }
+        
+        function testExportPDF() {
+            document.getElementById('exportResult').innerHTML = '<p>正在测试PDF导出...</p>';
+            window.open('pdf_export.php?action=export_pdf', '_blank');
+        }
+    </script>
+    
+    <hr>
+    <p><a href="index.php">返回主页</a> | <a href="debug.php">调试页面</a></p>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF导出测试</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        
+        .test-section h2 {
+            color: #495057;
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 10px 10px 10px 0;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: #5a6fd8;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        .code {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+        
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>📋 森森信息部工作周报表 - PDF导出测试</h1>
+        
+        <div class="test-section">
+            <h2>🧪 功能测试</h2>
+            <p>测试PDF导出功能和新的布局设计。</p>
+            
+            <div class="note success">
+                <strong>✅ 布局优化完成：</strong><br>
+                • 报告人移到日期右侧<br>
+                • 移除统计概览部分<br>
+                • 优化打印排版效果
+            </div>
+            
+            <a href="pdf_export.php?action=export_pdf" class="btn" target="_blank">
+                🖨️ 测试PDF导出
+            </a>
+            
+            <a href="index.php" class="btn btn-secondary">
+                ← 返回主页
+            </a>
+        </div>
+        
+        <div class="test-section">
+            <h2>📝 测试步骤</h2>
+            <ol>
+                <li>首先在主页添加一些测试报告数据</li>
+                <li>点击"测试PDF导出"按钮</li>
+                <li>验证新的布局：
+                    <ul>
+                        <li>日期和报告人在同一行</li>
+                        <li>周信息在下方</li>
+                        <li>直接显示工作内容等字段</li>
+                        <li>没有统计概览部分</li>
+                    </ul>
+                </li>
+                <li>测试打印功能是否正常</li>
+            </ol>
+        </div>
+        
+        <div class="test-section">
+            <h2>🔧 调试信息</h2>
+            <div class="code">
+                测试文件位置: /Users/mac/Documents/AI编程/工作周报表/<br>
+                PDF导出文件: pdf_export.php<br>
+                当前时间: <span id="current-time"></span>
+            </div>
+            
+            <div class="note">
+                <strong>注意：</strong> 如果没有报告数据，PDF导出会显示"没有数据可以导出"的错误。请先在主页添加一些测试数据。
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>📋 测试数据样例</h2>
+            <p>可以使用以下测试数据来验证PDF导出功能：</p>
+            
+            <div class="code">
+                姓名：张三<br>
+                日期：2025-01-15<br>
+                工作内容：完成项目需求分析和技术方案设计<br>
+                下周计划：开始系统开发和数据库设计<br>
+                遇到问题：需要确认具体的业务流程细节<br>
+                建议改进：建议增加更多的用户反馈收集机制
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 显示当前时间
+        document.getElementById('current-time').textContent = new Date().toLocaleString('zh-CN');
+        
+        // 每秒更新时间
+        setInterval(function() {
+            document.getElementById('current-time').textContent = new Date().toLocaleString('zh-CN');
+        }, 1000);
+    </script>
+</body>
+</html>

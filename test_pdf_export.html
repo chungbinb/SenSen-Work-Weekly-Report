@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF导出功能测试 - 森森信息部工作周报表</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #495057;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 10px 10px 10px 0;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: #5a6fd8;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        .btn-success {
+            background: #28a745;
+        }
+        
+        .btn-success:hover {
+            background: #218838;
+        }
+        
+        .code {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+            font-family: monospace;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        
+        .info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        
+        .example-filename {
+            background: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-weight: bold;
+            color: #0066cc;
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        .test-data {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        
+        .test-data-header {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-bottom: 1px solid #dee2e6;
+            font-weight: bold;
+        }
+        
+        .test-data-content {
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>📋 PDF导出功能测试</h1>
+        <p style="text-align: center; color: #666; margin-bottom: 30px;">
+            测试森森信息部工作周报表的PDF导出功能，包括汇总导出和单独导出
+        </p>
+        
+        <div class="test-section">
+            <h2>🎯 新功能介绍</h2>
+            
+            <div class="note success">
+                <strong>✅ 新增功能：</strong><br>
+                • 支持导出所有报告的汇总PDF<br>
+                • 支持单独导出每个报告为独立PDF<br>
+                • 自定义文件名格式：姓名+年份+第几周+森森工作周报表
+            </div>
+            
+            <div class="note info">
+                <strong>📋 文件名格式示例：</strong>
+            </div>
+            
+            <div class="example-filename">
+                张三2025年第3周森森工作周报表.html
+            </div>
+            <div class="example-filename">
+                李四2025年第4周森森工作周报表.html
+            </div>
+            <div class="example-filename">
+                王五2025年第5周森森工作周报表.html
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🧪 功能测试</h2>
+            
+            <h3>1. 汇总导出测试</h3>
+            <p>导出所有报告的汇总PDF，包含全部数据：</p>
+            <a href="pdf_export.php?action=export_pdf" class="btn" target="_blank">
+                📄 测试汇总导出
+            </a>
+            
+            <h3>2. 单独导出测试</h3>
+            <p>测试单个报告的导出功能：</p>
+            
+            <!-- 测试数据的单独导出链接 -->
+            <a href="pdf_export.php?action=export_pdf&date=2025-01-15&name=张三" class="btn btn-success" target="_blank">
+                📋 导出张三的报告
+            </a>
+            
+            <a href="pdf_export.php?action=export_pdf&date=2025-01-22&name=李四" class="btn btn-success" target="_blank">
+                📋 导出李四的报告
+            </a>
+            
+            <a href="pdf_export.php?action=export_pdf&date=2025-01-29&name=王五" class="btn btn-success" target="_blank">
+                📋 导出王五的报告
+            </a>
+            
+            <div class="note">
+                <strong>💡 使用方法：</strong><br>
+                1. 点击"汇总导出"查看所有报告，每个报告都有"单独导出"按钮<br>
+                2. 点击上方的单独导出按钮直接测试个人报告导出<br>
+                3. 浏览器会显示可打印的页面，使用Ctrl+P或打印按钮保存为PDF
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>📊 当前测试数据</h2>
+            
+            <div class="test-data">
+                <div class="test-data-header">📅 2025-01-15 - 张三</div>
+                <div class="test-data-content">
+                    <strong>预期文件名：</strong> 张三2025年第3周森森工作周报表.html<br>
+                    <strong>周信息：</strong> 第3周 2025/1/13-2025/1/19
+                </div>
+            </div>
+            
+            <div class="test-data">
+                <div class="test-data-header">📅 2025-01-22 - 李四</div>
+                <div class="test-data-content">
+                    <strong>预期文件名：</strong> 李四2025年第4周森森工作周报表.html<br>
+                    <strong>周信息：</strong> 第4周 2025/1/20-2025/1/26
+                </div>
+            </div>
+            
+            <div class="test-data">
+                <div class="test-data-header">📅 2025-01-29 - 王五</div>
+                <div class="test-data-content">
+                    <strong>预期文件名：</strong> 王五2025年第5周森森工作周报表.html<br>
+                    <strong>周信息：</strong> 第5周 2025/1/27-2025/2/02
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🔧 技术说明</h2>
+            
+            <h3>URL参数说明：</h3>
+            <div class="code">
+# 导出所有报告汇总
+pdf_export.php?action=export_pdf
+
+# 导出单个报告
+pdf_export.php?action=export_pdf&date=2025-01-15&name=张三
+            </div>
+            
+            <h3>文件名生成逻辑：</h3>
+            <div class="code">
+$filename = $name . $year . '年第' . $weekNumber . '周森森工作周报表';
+            </div>
+            
+            <div class="note">
+                <strong>📝 注意事项：</strong><br>
+                • 单独导出时，浏览器的下载建议名称为生成的文件名<br>
+                • 实际保存时可以选择保存为PDF格式<br>
+                • 如果报告人姓名为空，单独导出功能不可用
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🏠 导航</h2>
+            <a href="index.php" class="btn btn-secondary">← 返回主页</a>
+            <a href="pdf_preview.html" class="btn btn-secondary">📋 查看PDF预览</a>
+            <a href="debug.php" class="btn btn-secondary">🔧 系统诊断</a>
+        </div>
+    </div>
+    
+    <script>
+        // 显示当前时间
+        function updateTime() {
+            const now = new Date();
+            const timeStr = now.toLocaleString('zh-CN');
+            console.log('当前时间：', timeStr);
+        }
+        
+        updateTime();
+        setInterval(updateTime, 60000); // 每分钟更新一次
+        
+        // 页面加载完成提示
+        window.addEventListener('load', function() {
+            console.log('PDF导出测试页面加载完成');
+            console.log('可以开始测试PDF导出功能');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 数据库文件
+*.db
+*.sqlite
+*.sqlite3
+
+# 配置文件（可能包含敏感信息）
+config_local.php
+
+# 日志文件
+*.log
+error.log
+
+# 运行时生成的文件
+install.lock
+
+# 用户上传的文件
+uploads/
+storage/
+
+# IDE 文件
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 临时文件
+tmp/
+temp/
+cache/
+
+# 备份文件
+*.backup
+*.bak
+reports.json.backup

@@ -59,8 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
             exit;
         }
         
-        // 按日期排序
-        ksort($reports);
+        // 按日期倒序排序（最新的在前面）
+        krsort($reports);
         
         // 检查是否指定了特定的报告
         $target_date = $_GET['date'] ?? '';
@@ -116,11 +116,26 @@ function exportAllReports($reports) {
     // 设置响应头为HTML，让浏览器显示可打印的页面
     header('Content-Type: text/html; charset=utf-8');
     
-    generateReportHTML($reports, $filename, false);
+    // 获取分页参数
+    $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+    $per_page = 5; // 每页显示5条
+    
+    generateReportHTML($reports, $filename, false, $page, $per_page);
 }
 
 // 生成报告HTML的函数
-function generateReportHTML($reports, $title, $is_single = false) {
+function generateReportHTML($reports, $title, $is_single = false, $page = 1, $per_page = 5) {
+    // 计算分页
+    $total_reports = count($reports);
+    $total_pages = ceil($total_reports / $per_page);
+    $page = max(1, min($page, $total_pages)); // 确保页码在有效范围内
+    
+    // 获取当前页的报告
+    $reports_array = $reports; // 保留所有报告用于计算总数
+    if (!$is_single && $total_reports > $per_page) {
+        $offset = ($page - 1) * $per_page;
+        $reports = array_slice($reports, $offset, $per_page, true);
+    }
     
     echo '<!DOCTYPE html>
 <html lang="zh-CN">
@@ -255,6 +270,40 @@ function generateReportHTML($reports, $title, $is_single = false) {
             color: #666;
             margin-top: 5px;
         }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px 0;
+            gap: 10px;
+        }
+        
+        .pagination a, .pagination span {
+            padding: 8px 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #667eea;
+            background: white;
+        }
+        
+        .pagination .current {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+            font-weight: bold;
+        }
+        
+        .pagination a:hover {
+            background: #f0f0f0;
+        }
+        
+        .pagination .disabled {
+            color: #ccc;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
@@ -274,8 +323,13 @@ function generateReportHTML($reports, $title, $is_single = false) {
         <h1>📋 ' . htmlspecialchars($title) . '</h1>
         <div class="meta">
             <p>生成时间：' . date('Y年m月d日 H:i:s') . '</p>
-            <p>总计报告：' . count($reports) . ' 份</p>
-        </div>
+            <p>总计报告：' . $total_reports . ' 份</p>';
+            
+    if (!$is_single && $total_pages > 1) {
+        echo '<p>当前页：第 ' . $page . ' 页 / 共 ' . $total_pages . ' 页</p>';
+    }
+    
+    echo '</div>
     </div>';
     
     $count = 0;
@@ -348,10 +402,57 @@ function generateReportHTML($reports, $title, $is_single = false) {
         
         echo '</div>';
         
-        // 每3个报告后分页
+        // 打印模式下每3个报告后分页
         if ($count % 3 === 0 && $count < count($reports)) {
             echo '<div class="page-break"></div>';
         }
+    }
+    
+    // 添加分页导航（只在非单个报告且有多页时显示）
+    if (!$is_single && $total_pages > 1) {
+        echo '<div class="pagination no-print">';
+        
+        // 上一页
+        if ($page > 1) {
+            echo '<a href="pdf_export.php?action=export_pdf&page=' . ($page - 1) . '">← 上一页</a>';
+        } else {
+            echo '<span class="disabled">← 上一页</span>';
+        }
+        
+        // 页码
+        $start_page = max(1, $page - 2);
+        $end_page = min($total_pages, $page + 2);
+        
+        if ($start_page > 1) {
+            echo '<a href="pdf_export.php?action=export_pdf&page=1">1</a>';
+            if ($start_page > 2) {
+                echo '<span>...</span>';
+            }
+        }
+        
+        for ($i = $start_page; $i <= $end_page; $i++) {
+            if ($i == $page) {
+                echo '<span class="current">' . $i . '</span>';
+            } else {
+                echo '<a href="pdf_export.php?action=export_pdf&page=' . $i . '">' . $i . '</a>';
+            }
+        }
+        
+        if ($end_page < $total_pages) {
+            if ($end_page < $total_pages - 1) {
+                echo '<span>...</span>';
+            }
+            echo '<a href="pdf_export.php?action=export_pdf&page=' . $total_pages . '">' . $total_pages . '</a>';
+        }
+        
+        // 下一页
+        if ($page < $total_pages) {
+            echo '<a href="pdf_export.php?action=export_pdf&page=' . ($page + 1) . '">下一页 →</a>';
+        } else {
+            echo '<span class="disabled">下一页 →</span>';
+        }
+        
+        echo '</div>';
     }
     
     echo '<script>
